@@ -11,11 +11,22 @@ from mainmenucommunity import MainMenuCommunity
 from mainmenucredits import MainMenuCredits
 from mainmenuoptions import MainMenuOptions
 from mainmenuexit import MainMenuExit
+from mainmenucursor import MainMenuCursor
 
 def handle_events():
     events = pico2d.get_events()
+    global count
+
+    for event in events:
+        if event.type == pico2d.SDL_MOUSEMOTION:
+            if count == 0 and 72 <= event.x <= 696 and 51 <= event.y <= 249:
+                mainmenucursor = MainMenuCursor()
+                game_world.add_object(mainmenucursor, 3)
+                count += 1
 
 def init():
+    global count
+    count = 0
     # MainMenuBGM = pico2d.load_wav('Sounds/Forest2.wav')
     # MainMenuBGM.set_volume(64)
     # MainMenuBGM.repeat_play()
