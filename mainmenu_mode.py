@@ -16,6 +16,10 @@ def handle_events():
     events = pico2d.get_events()
 
 def init():
+    # MainMenuBGM = pico2d.load_wav('Sounds/Forest2.wav')
+    # MainMenuBGM.set_volume(64)
+    # MainMenuBGM.repeat_play()
+
     mainmenubackground1 = MainMenuBackground()
     game_world.add_object(mainmenubackground1, 0)
 
