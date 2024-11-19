@@ -2,6 +2,8 @@ import game_framework
 import game_world
 import pico2d
 
+import play_mode
+
 from mainmenubackground import MainMenuBackground
 from mainmenuplay import MainMenuPlay
 from mainmenulogo import MainMenuLogo
@@ -23,6 +25,8 @@ def handle_events():
                 mainmenucursor = MainMenuCursor()
                 game_world.add_object(mainmenucursor, 3)
                 count += 1
+        elif event.type == pico2d.SDL_KEYDOWN and event.key == pico2d.SDLK_SPACE:
+            game_framework.change_mode(play_mode)
 
 def init():
     global count
