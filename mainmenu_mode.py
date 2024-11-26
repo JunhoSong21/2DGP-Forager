@@ -25,6 +25,8 @@ def handle_events():
                 mainmenucursor = MainMenuCursor()
                 game_world.add_object(mainmenucursor, 3)
                 count += 1
+            else:
+                mainmenucursor.x = 2000
         elif event.type == pico2d.SDL_KEYDOWN and event.key == pico2d.SDLK_SPACE:
             game_framework.change_mode(play_mode)
 

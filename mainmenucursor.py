@@ -1,4 +1,5 @@
 import game_framework
+import game_world
 import pico2d
 
 TIME_PER_ACTION = 0.5
@@ -21,4 +22,7 @@ class MainMenuCursor:
             int(self.frame) * 40 + 20, 0, 20, 40, self.x + 270, self.y, 120, 240)
 
     def update(self):
+        if self.x == 2000:
+            game_world.remove_object(self)
+            
         self.frame = (self.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 10
