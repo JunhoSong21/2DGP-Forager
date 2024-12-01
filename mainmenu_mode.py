@@ -50,7 +50,7 @@ def handle_events():
                     cursor_active = True
                 mainmenucursor.x, mainmenucursor.y = 384, 445
                 mainmenucursor.size = 1
-            elif 72 <= event.x <= 696 and 725 <= event.y <= 865:
+            elif 142 <= event.x <= 626 and 725 <= event.y <= 865:
                 if not cursor_active:
                     mainmenucursor = MainMenuCursor()
                     game_world.add_object(mainmenucursor, 3)
