@@ -17,7 +17,7 @@ from mainmenucursor import MainMenuCursor
 
 def handle_events():
     events = pico2d.get_events()
-    global count
+
     global mainmenucursor, cursor_active
 
     for event in events:
@@ -28,6 +28,14 @@ def handle_events():
                     game_world.add_object(mainmenucursor, 3)
                     cursor_active = True
                 mainmenucursor.x, mainmenucursor.y = 384, 930
+                mainmenucursor.size = 0
+            elif 72 <= event.x <= 696 and 251 <= event.y <= 400:
+                if not cursor_active:
+                    mainmenucursor = MainMenuCursor()
+                    game_world.add_object(mainmenucursor, 3)
+                    cursor_active = True
+                mainmenucursor.x, mainmenucursor.y = 384, 750
+                mainmenucursor.size = 1
             else:
                 if cursor_active:
                     game_world.remove_object(mainmenucursor)
@@ -37,9 +45,6 @@ def handle_events():
             game_framework.change_mode(play_mode)
 
 def init():
-    global count
-    count = 0
-
     global mainmenucursor, cursor_active
     mainmenucursor = None
     cursor_active = False
