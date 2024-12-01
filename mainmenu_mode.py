@@ -18,21 +18,31 @@ from mainmenucursor import MainMenuCursor
 def handle_events():
     events = pico2d.get_events()
     global count
+    global mainmenucursor, cursor_active
 
     for event in events:
         if event.type == pico2d.SDL_MOUSEMOTION:
-            if count == 0 and 72 <= event.x <= 696 and 51 <= event.y <= 249:
-                mainmenucursor = MainMenuCursor()
-                game_world.add_object(mainmenucursor, 3)
-                count += 1
+            if 72 <= event.x <= 696 and 51 <= event.y <= 249:
+                if not cursor_active:
+                    mainmenucursor = MainMenuCursor()
+                    game_world.add_object(mainmenucursor, 3)
+                    cursor_active = True
+                mainmenucursor.x, mainmenucursor.y = 384, 930
             else:
-                mainmenucursor.x = 2000
+                if cursor_active:
+                    game_world.remove_object(mainmenucursor)
+                    cursor_active = False
+
         elif event.type == pico2d.SDL_KEYDOWN and event.key == pico2d.SDLK_SPACE:
             game_framework.change_mode(play_mode)
 
 def init():
     global count
     count = 0
+
+    global mainmenucursor, cursor_active
+    mainmenucursor = None
+    cursor_active = False
     # MainMenuBGM = pico2d.load_wav('Sounds/Forest2.wav')
     # MainMenuBGM.set_volume(64)
     # MainMenuBGM.repeat_play()
@@ -84,5 +94,3 @@ def pause():
 
 def resume():
     pass
-
-# 48
