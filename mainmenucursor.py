@@ -32,6 +32,10 @@ class MainMenuCursor:
                 int(self.frame) * 40, 0, 20, 40, self.x - 230, self.y, 100, 200)
             self.image.clip_draw(
                 int(self.frame) * 40 + 20, 0, 20, 40, self.x + 230, self.y, 100, 200)
+        elif self.size == 3:
+            pass
+        elif self.size == 4:
+            pass
 
 
     def update(self):
