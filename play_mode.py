@@ -2,6 +2,7 @@ import game_framework
 import game_world
 import pico2d
 
+from background import *
 from forager import *
 
 def handle_events():
@@ -17,6 +18,9 @@ def init():
     global forager
 
     running = True
+
+    background = BackGround()
+    game_world.add_object(background, 0)
 
     forager = Forager()
     game_world.add_object(forager, 2)
