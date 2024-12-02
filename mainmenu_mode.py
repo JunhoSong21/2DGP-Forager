@@ -75,7 +75,8 @@ def handle_events():
                 if cursor_active:
                     game_world.remove_object(mainmenucursor)
                     cursor_active = False
-
+        elif event.type == pico2d.SDL_MOUSEBUTTONDOWN and event.button == pico2d.SDL_BUTTON_LEFT and 410 <= event.x <= 700 and 900 <= event.y <= 1055:
+            quit()
         elif event.type == pico2d.SDL_KEYDOWN and event.key == pico2d.SDLK_SPACE:
             game_framework.change_mode(play_mode)
 
