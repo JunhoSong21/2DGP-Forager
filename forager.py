@@ -25,22 +25,27 @@ class Idle:
 
     @staticmethod
     def draw(forager):
-        forager.image.clip_draw(
-            int(forager.frame) * 15, 0, 15, 20, forager.x, forager.y, 45, 60
-        )
+        if forager.imageDir == 1:
+            forager.image.clip_draw(
+                int(forager.frame) * 15, 0, 15, 20, forager.x, forager.y, 45, 60
+            )
+        elif forager.imageDir == -1:
+            forager.image.clip_composite_draw(
+                int(forager.frame) * 15, 0, 15, 20, '', True, False, forager.x, forager.y, 45, 60
+            )
 
 class Run:
     @staticmethod
     def enter(forager, e):
         forager.image = pico2d.load_image('Sprites/Playerwalk.png')
-        if state_machine.right_down(e) or state_machine.left_up(e):
+        if state_machine.d_down(e) or state_machine.a_up(e):
             forager.Xdir = 1
-        elif state_machine.left_down(e) or state_machine.right_up(e):
+        elif state_machine.a_down(e) or state_machine.d_up(e):
             forager.Xdir = -1
 
-        if state_machine.up_down(e) or state_machine.down_up(e):
+        if state_machine.w_down(e) or state_machine.s_up(e):
             forager.Ydir = 1
-        elif state_machine.down_down(e) or state_machine.up_up(e):
+        elif state_machine.s_down(e) or state_machine.w_up(e):
             forager.Ydir = -1
 
         forager.frame = 0
@@ -71,14 +76,15 @@ class Forager:
         self.frame = 0
         self.Xdir, self.Ydir = 0, 0
         self.image = pico2d.load_image('Sprites/Playeridle.png')
+        self.imageDir = 1
         self.state_machine = state_machine.StateMachine(self)
         self.state_machine.start(Idle)
         self.state_machine.set_transitions(
             {
-                Idle: {state_machine.right_down: Run, state_machine.left_down: Run, state_machine.left_up: Run, state_machine.right_up: Run,
-                       state_machine.up_down: Run, state_machine.up_up : Run, state_machine.down_down: Run, state_machine.down_up : Run},
-                Run: {state_machine.right_down: Idle, state_machine.left_down: Idle, state_machine.right_up: Idle, state_machine.left_up: Idle,
-                      state_machine.up_down: Idle, state_machine.up_up: Idle, state_machine.down_down: Idle, state_machine.down_up: Idle}
+                Idle: {state_machine.d_down: Run, state_machine.a_down: Run, state_machine.a_up: Run, state_machine.d_up: Run,
+                       state_machine.w_down: Run, state_machine.w_up : Run, state_machine.s_down: Run, state_machine.s_up : Run},
+                Run: {state_machine.d_down: Idle, state_machine.a_down: Idle, state_machine.d_up: Idle, state_machine.a_up: Idle,
+                      state_machine.w_down: Idle, state_machine.w_up: Idle, state_machine.s_down: Idle, state_machine.s_up: Idle}
             }
         )
     
