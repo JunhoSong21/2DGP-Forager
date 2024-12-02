@@ -77,6 +77,7 @@ class Forager:
         self.Xdir, self.Ydir = 0, 0
         self.image = pico2d.load_image('Sprites/Playeridle.png')
         self.imageDir = 1
+        self.moving = False
         self.state_machine = state_machine.StateMachine(self)
         self.state_machine.start(Idle)
         self.state_machine.set_transitions(
@@ -95,7 +96,8 @@ class Forager:
         self.state_machine.add_event(('INPUT', event))
 
     def draw(self):
-        self.state_machine.draw()
+        if self.moving == False:
+            if self.imageDir
 
     def set_item(self, item):
         self.item = item
