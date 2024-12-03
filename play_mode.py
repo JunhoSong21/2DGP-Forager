@@ -12,10 +12,11 @@ def handle_events():
     for event in events:
         if event.type == pico2d.SDL_KEYDOWN or pico2d.SDL_KEYUP:
             forager.add_event(event)
-        elif event.type == pico2d.SDL_MOUSEMOTION:
-            if event.y < 1040:
+
+        if event.type == pico2d.SDL_MOUSEMOTION:
+            if event.x < 960:
                 forager.imageDir = -1
-            elif event.y >= 1040:
+            elif event.x >= 960:
                 forager.imageDir = 1
 
 def init():

@@ -183,24 +183,18 @@ class Forager:
         self.state_machine.add_event(('INPUT', event))
 
     def draw(self):
+        frameX = int(self.frame) * 15
+
         if self.moving == False:
             if self.imageDir == 1:
-                self.image.clip_draw(
-                    int(self.frame) * 15, 20, 15, 40, self.x, self.y, 45, 60
-                )
+                self.image.clip_draw(frameX, 20, 15, 40, self.x, self.y, 45, 60)
             elif self.imageDir == -1:
-                self.image.clip_composite_draw(
-                    int(self.frame) * 15, 20, 15, 40, '', True, False, self.x, self.y, 45, 60
-                )
+                self.image.clip_composite_draw(frameX, 20, 15, 40, 0, 'h', self.x, self.y, 45, 60)
         elif self.moving == True:
             if self.imageDir == 1:
-                self.image.clip_draw(
-                    int(self.frame) * 15, 0, 15, 20, self.x, self.y, 45, 60
-                )
+                self.image.clip_draw(frameX, 0, 15, 20, self.x, self.y, 45, 60)
             elif self.imageDir == -1:
-                self.image.clip_composite_draw(
-                    int(self.frame) * 15, 0, 15, 20, '', True, False, self.x, self.y, 45, 60
-                )
+                self.image.clip_composite_draw(frameX, 0, 15, 20, 0, 'h', self.x, self.y, 45, 60)
 
     def set_item(self, item):
         self.item = item
