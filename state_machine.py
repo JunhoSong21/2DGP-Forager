@@ -38,20 +38,12 @@ class StateMachine:
     def start(self, state):
         self.cur_state = state # 시작 상태를 받아서, 그걸로 현재 상태를 정의
         self.cur_state.enter(self.obj, ('START', 0))
-        # print(f'Enter into {state}')
 
     def update(self):
         self.cur_state.do(self.obj)
-        
-        if self.event_q: # list는 요소가 존재하면 True
-            e = self.event_q.pop(0) # 0 으로 설정하면 맨 앞에서 pop 수행
-            # 현재 상태와 발생한 이벤트에 따라서 다음 상태를 결정 = 상태 변환 테이블
-            for check_event, next_state in self.transitions[self.cur_state].items():
-                if check_event(e):
-                    self.cur_state.exit(self.obj, e)
-                    self.cur_state = next_state
-                    self.cur_state.enter(self.obj, e) # 상태 변환 이유를 구분
-                    return # event에 따른 상태 변환 완료
+        if self.event_q:
+            event = self.event_q.pop(0)
+            self.handle_event(event)
             
     def draw(self):
         self.cur_state.draw(self.obj)
@@ -62,3 +54,13 @@ class StateMachine:
 
     def set_transitions(self, transitions):
         self.transitions = transitions
+
+    def handle_event(self, e):
+        for event, next_state in self.transitions[self.cur_state].items():
+            if event(e):
+                # print(f'Exit from {self.cur_state}')
+                self.cur_state.exit(self.obj, e)
+                self.cur_state = next_state
+                # print(f'Enter into {self.cur_state}')
+                self.cur_state.enter(self.obj, e)
+                return
