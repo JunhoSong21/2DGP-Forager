@@ -57,20 +57,29 @@ def handle_events():
                     cursor_active = True
                 mainmenucursor.x, mainmenucursor.y = 384, 280
                 mainmenucursor.size = 2
-            elif 142 <= event.x <= 626 and 725 <= event.y <= 865:
+            elif 25 <= event.x <= 405 and 900 <= event.y <= 1055:
                 if not cursor_active:
                     mainmenucursor = MainMenuCursor()
                     game_world.add_object(mainmenucursor, 3)
                     cursor_active = True
-                mainmenucursor.x, mainmenucursor.y = 384, 280
-                mainmenucursor.size = 2
+                mainmenucursor.x, mainmenucursor.y = 210, 100
+                mainmenucursor.size = 3
+            elif 410 <= event.x <= 700 and 900 <= event.y <= 1055:
+                if not cursor_active:
+                    mainmenucursor = MainMenuCursor()
+                    game_world.add_object(mainmenucursor, 3)
+                    cursor_active = True
+                mainmenucursor.x, mainmenucursor.y = 560, 100
+                mainmenucursor.size = 4
             else:
                 if cursor_active:
                     game_world.remove_object(mainmenucursor)
                     cursor_active = False
-
-        elif event.type == pico2d.SDL_KEYDOWN and event.key == pico2d.SDLK_SPACE:
-            game_framework.change_mode(play_mode)
+        elif event.type == pico2d.SDL_MOUSEBUTTONDOWN and event.button == pico2d.SDL_BUTTON_LEFT:
+            if 72 <= event.x <= 696 and 51 <= event.y <= 249:
+                game_framework.change_mode(play_mode)
+            elif 410 <= event.x <= 700 and 900 <= event.y <= 1055:
+                quit()
 
 def init():
     global mainmenucursor, cursor_active
