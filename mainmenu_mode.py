@@ -4,6 +4,7 @@ import pico2d
 
 import play_mode
 
+from mouse_cursor import MouseCursor
 from mainmenubackground import MainMenuBackground
 from mainmenuplay import MainMenuPlay
 from mainmenulogo import MainMenuLogo
@@ -18,10 +19,12 @@ from mainmenucursor import MainMenuCursor
 def handle_events():
     events = pico2d.get_events()
 
-    global mainmenucursor, cursor_active
+    global mousecursor, mainmenucursor, cursor_active
 
     for event in events:
         if event.type == pico2d.SDL_MOUSEMOTION:
+            mousecursor.x, mousecursor.y = event.x, 1080 - event.y
+
             if 72 <= event.x <= 696 and 51 <= event.y <= 249:
                 if not cursor_active:
                     mainmenucursor = MainMenuCursor()
@@ -82,9 +85,14 @@ def handle_events():
                 quit()
 
 def init():
-    global mainmenucursor, cursor_active
+    global mousecursor, mainmenucursor, cursor_active
     mainmenucursor = None
     cursor_active = False
+
+    pico2d.hide_cursor()
+
+    mousecursor = MouseCursor()
+    game_world.add_object(mousecursor, 3)
     # MainMenuBGM = pico2d.load_wav('Sounds/Forest2.wav')
     # MainMenuBGM.set_volume(64)
     # MainMenuBGM.repeat_play()
