@@ -4,9 +4,10 @@ import pico2d
 
 from background import *
 from forager import *
+from forager_shadow import *
 
 def handle_events():
-    global running, forager
+    global running, forager, foragershadow
 
     events = pico2d.get_events()
     for event in events:
@@ -20,7 +21,7 @@ def handle_events():
                 forager.imageDir = 1
 
 def init():
-    global running, forager
+    global running, forager, foragershadow
 
     running = True
 
@@ -29,6 +30,9 @@ def init():
 
     forager = Forager()
     game_world.add_object(forager, 2)
+
+    forager = ForagerShadow()
+    game_world.add_object(foragershadow, 1)
 
 def finish():
     game_world.clear()
