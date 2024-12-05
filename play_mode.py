@@ -31,7 +31,7 @@ def init():
     forager = Forager()
     game_world.add_object(forager, 2)
 
-    forager = ForagerShadow()
+    foragershadow = ForagerShadow()
     game_world.add_object(foragershadow, 1)
 
 def finish():
