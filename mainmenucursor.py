@@ -16,6 +16,10 @@ class MainMenuCursor:
         if MainMenuCursor.image == None:
             MainMenuCursor.image = pico2d.load_image('Sprites/Cursor1x1.png')
 
+        self.bgm = pico2d.load_wav('Sounds/MainMenuCursorOn.wav')
+        self.bgm.set_volume(32)
+        self.bgm.play(1)
+
     def draw(self):
         if self.size == 0:
             self.image.clip_draw(
