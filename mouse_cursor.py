@@ -7,12 +7,16 @@ class MouseCursor:
 
     def __init__(self):
         self.x, self.y = 960, 540
+        self.size = 0
 
         if MouseCursor.image == None:
             MouseCursor.image = pico2d.load_image('Sprites/MouseCursor.png')
 
     def draw(self):
-        self.image.draw(self.x + 16, self.y - 16, 48, 48)
+        if self.size == 0:
+            self.image.draw(self.x + 16, self.y - 16, 48, 48)
+        elif self.size == 1:
+            self.image.draw(self.x + 20, self.y - 20, 40, 40)
 
     def update(self):
         pass
