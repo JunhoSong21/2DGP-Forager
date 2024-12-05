@@ -183,8 +183,8 @@ class Forager:
         self.state_machine.add_event(('INPUT', event))
 
     def draw(self):
-        sx = self.x - server.background.window_left
-        sy = self.y - server.background.window_bottom
+        # sx = self.x - server.background.window_left
+        # sy = self.y - server.background.window_bottom
         frameX = int(self.frame) * 15
 
         if self.moving == False:

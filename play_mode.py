@@ -5,6 +5,7 @@ import pico2d
 from background import *
 from forager import *
 from forager_shadow import *
+from grassland import *
 
 def handle_events():
     global running, forager, foragershadow
@@ -23,16 +24,21 @@ def handle_events():
 def init():
     global running, forager, foragershadow
 
+    pico2d.hide_cursor()
+
     running = True
 
     background = BackGround()
     game_world.add_object(background, 0)
 
+    grassland = GrassLand()
+    game_world.add_object(grassland, 1)
+
     forager = Forager()
-    game_world.add_object(forager, 2)
+    game_world.add_object(forager, 3)
 
     foragershadow = ForagerShadow()
-    game_world.add_object(foragershadow, 1)
+    game_world.add_object(foragershadow, 2)
 
 def finish():
     game_world.clear()
