@@ -173,6 +173,10 @@ class Forager:
             }
         )
 
+        self.image_heart = pico2d.load_image('Sprites/Heart.png')
+        self.heart_x, self.heart_y = 50, 1030
+        self.heart = 3
+
         self.image_coin = pico2d.load_image('Sprites/Coin.png')
         self.coin_x, self.coin_y = 50, 50
         self.coin = 0
@@ -201,6 +205,9 @@ class Forager:
                 self.image.clip_draw(frameX, 0, 15, 20, self.x, self.y, 45, 60)
             elif self.imageDir == -1:
                 self.image.clip_composite_draw(frameX, 0, 15, 20, 0, 'h', self.x, self.y, 45, 60)
+
+        if self.heart >= 3:
+            self.image_heart.clip_draw(0, 0, 36, 36, self.heart_x, self.heart_y, 72, 72)
 
         self.image_coin.draw(self.coin_x, self.coin_y, 90, 90)
 
