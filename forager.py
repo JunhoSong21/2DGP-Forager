@@ -4,7 +4,7 @@ import pico2d
 from state_machine import *
 import math
 
-TIME_PER_ACTION = 0.5
+TIME_PER_ACTION = 1
 ACTION_PER_TIME = 1.0 / TIME_PER_ACTION
 FRAMES_PER_ACTION = 8
 PIXEL_PER_METER = (10.0 / 0.3)
@@ -172,7 +172,11 @@ class Forager:
                 RunRightDown: {d_up: RunDown, s_up: RunRight, a_down: RunDown, w_down: RunRight}
             }
         )
-    
+
+        self.image_coin = pico2d.load_image('Sprites/Coin.png')
+        self.coin_x, self.coin_y = 50, 50
+        self.coin = 0
+
     def update(self):
         self.state_machine.update()
         self.frame = (self.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 6
@@ -197,6 +201,8 @@ class Forager:
                 self.image.clip_draw(frameX, 0, 15, 20, self.x, self.y, 45, 60)
             elif self.imageDir == -1:
                 self.image.clip_composite_draw(frameX, 0, 15, 20, 0, 'h', self.x, self.y, 45, 60)
+
+        self.image_coin.draw(self.coin_x, self.coin_y, 90, 90)
 
     def set_item(self, item):
         self.item = item

@@ -12,7 +12,7 @@ class ForagerShadow:
             ForagerShadow.image = pico2d.load_image('Sprites/ForagerShadow.png')
 
     def draw(self):
-        self.image.draw(self.x, self.y)
+        self.image.draw(self.x, self.y, 48, 48)
 
     def update(self):
         pass

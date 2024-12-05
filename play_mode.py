@@ -7,6 +7,7 @@ from background import *
 from forager import *
 from forager_shadow import *
 from grassland import *
+from playmodecoin import *
 
 def handle_events():
     global running, mousecursor, forager, foragershadow
@@ -29,20 +30,20 @@ def init():
 
     running = True
 
-    mousecursor = MouseCursor()
+    mousecursor = MouseCursor() #마우스 커서
     game_world.add_object(mousecursor, 4)
     mousecursor.size = 1
 
-    background = BackGround()
+    background = BackGround() # 바다
     game_world.add_object(background, 0)
 
-    grassland = GrassLand()
+    grassland = GrassLand() # 땅
     game_world.add_object(grassland, 1)
 
-    forager = Forager()
+    forager = Forager() # 캐릭터
     game_world.add_object(forager, 3)
 
-    foragershadow = ForagerShadow()
+    foragershadow = ForagerShadow() # 캐릭터 그림자
     game_world.add_object(foragershadow, 2)
 
 def finish():

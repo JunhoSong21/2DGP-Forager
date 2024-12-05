@@ -8,7 +8,7 @@ class GrassLand:
         self.ch = pico2d.get_canvas_height
 
     def draw(self):
-        self.image.draw(960, 540)
+        self.image.draw(960, 540, 560, 588)
 
     def update(self):
         pass

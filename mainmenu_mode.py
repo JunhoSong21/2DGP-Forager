@@ -15,11 +15,12 @@ from mainmenucredits import MainMenuCredits
 from mainmenuoptions import MainMenuOptions
 from mainmenuexit import MainMenuExit
 from mainmenucursor import MainMenuCursor
+from mainmenuselect import MainMenuSelect
 
 def handle_events():
     events = pico2d.get_events()
 
-    global mousecursor, mainmenucursor, cursor_active
+    global mousecursor, mainmenucursor, cursor_active, mainmenuselect
 
     for event in events:
         if event.type == pico2d.SDL_MOUSEMOTION:
@@ -80,12 +81,14 @@ def handle_events():
                     cursor_active = False
         elif event.type == pico2d.SDL_MOUSEBUTTONDOWN and event.button == pico2d.SDL_BUTTON_LEFT:
             if 72 <= event.x <= 696 and 51 <= event.y <= 249:
+                mainmenuselect = MainMenuSelect()
+                game_world.add_object(mainmenuselect, 0)
                 game_framework.change_mode(play_mode)
             elif 410 <= event.x <= 700 and 900 <= event.y <= 1055:
                 quit()
 
 def init():
-    global mousecursor, mainmenucursor, cursor_active
+    global mousecursor, mainmenucursor, cursor_active, mainmenuselect
     mainmenucursor = None
     cursor_active = False
 
@@ -93,9 +96,6 @@ def init():
 
     mousecursor = MouseCursor()
     game_world.add_object(mousecursor, 3)
-    # MainMenuBGM = pico2d.load_wav('Sounds/Forest2.wav')
-    # MainMenuBGM.set_volume(64)
-    # MainMenuBGM.repeat_play()
 
     mainmenubackground1 = MainMenuBackground()
     game_world.add_object(mainmenubackground1, 0)
@@ -127,6 +127,8 @@ def init():
 
     mainmenuexit = MainMenuExit()
     game_world.add_object(mainmenuexit, 1)
+
+    
 
 def update():
     game_world.update()
