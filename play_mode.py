@@ -8,6 +8,7 @@ from background import *
 from forager import *
 from forager_shadow import *
 from backpack import *
+from axe import *
 from grassland import *
 from playmodecoin import *
 
@@ -50,6 +51,9 @@ def init():
 
     backpack = BackPack() # 캐릭터 가방
     game_world.add_object(backpack, 2)
+
+    axe = Axe() # 캐릭터 도구
+    game_world.add_object(axe, 4)
 
 def finish():
     game_world.clear()

@@ -182,6 +182,8 @@ class Forager:
         self.coin_x, self.coin_y = 40, 40
         self.coin = 0
 
+        self.itemCount = 1
+
     def update(self):
         self.state_machine.update()
         self.frame = (self.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 6
