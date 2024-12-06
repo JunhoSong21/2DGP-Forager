@@ -7,6 +7,7 @@ from mouse_cursor import *
 from background import *
 from forager import *
 from forager_shadow import *
+from backpack import *
 from grassland import *
 from playmodecoin import *
 
@@ -46,6 +47,9 @@ def init():
 
     foragershadow = ForagerShadow() # 캐릭터 그림자
     game_world.add_object(foragershadow, 2)
+
+    backpack = BackPack() # 캐릭터 가방
+    game_world.add_object(backpack, 2)
 
 def finish():
     game_world.clear()
