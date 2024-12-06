@@ -11,7 +11,7 @@ class BackGround:
 
         self.bgm = pico2d.load_wav('Sounds/Forest1.wav')
         self.bgm.set_volume(32)
-        self.bgm.repeat_play()
+        #self.bgm.repeat_play()
     
     def draw(self):
         self.image.draw(self.x, self.y)
