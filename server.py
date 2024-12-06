@@ -1,0 +1,2 @@
+forager = None
+grassland = None

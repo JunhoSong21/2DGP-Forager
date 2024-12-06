@@ -3,6 +3,7 @@ import game_world
 import pico2d
 from state_machine import *
 import math
+import server
 
 TIME_PER_ACTION = 1
 ACTION_PER_TIME = 1.0 / TIME_PER_ACTION

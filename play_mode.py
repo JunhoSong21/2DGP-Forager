@@ -1,6 +1,7 @@
 import game_framework
 import game_world
 import pico2d
+import server
 
 from mouse_cursor import *
 from background import *
@@ -10,23 +11,23 @@ from grassland import *
 from playmodecoin import *
 
 def handle_events():
-    global running, mousecursor, forager, foragershadow
+    global running, mousecursor, foragershadow
 
     events = pico2d.get_events()
     for event in events:
         if event.type == pico2d.SDL_KEYDOWN or pico2d.SDL_KEYUP:
-            forager.add_event(event)
+            server.forager.add_event(event)
 
         if event.type == pico2d.SDL_MOUSEMOTION:
             mousecursor.x, mousecursor.y = event.x, 1080 - event.y
 
             if event.x < 960:
-                forager.imageDir = -1
+                server.forager.imageDir = -1
             elif event.x >= 960:
-                forager.imageDir = 1
+                server.forager.imageDir = 1
 
 def init():
-    global running, mousecursor, forager, foragershadow
+    global running, mousecursor, foragershadow
 
     running = True
 
@@ -40,8 +41,8 @@ def init():
     grassland = GrassLand() # 땅
     game_world.add_object(grassland, 1)
 
-    forager = Forager() # 캐릭터
-    game_world.add_object(forager, 3)
+    server.forager = Forager() # 캐릭터
+    game_world.add_object(server.forager, 3)
 
     foragershadow = ForagerShadow() # 캐릭터 그림자
     game_world.add_object(foragershadow, 2)
