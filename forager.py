@@ -8,6 +8,7 @@ import random
 from grassland import *
 from druidtree import *
 from slime import *
+from damagescreen import *
 
 TIME_PER_ACTION = 0.7
 ACTION_PER_TIME = 1.0 / TIME_PER_ACTION
@@ -223,13 +224,10 @@ class Forager:
         # 진행 페이즈
         self.phase = 1
 
-        # 피격 사운드
-        self.damage_bgm = pico2d.load_wav('Sounds/PlayerDamage.wav')
-        self.damage_bgm.set_volume(60)
-
         # 피격 간격 조절
         self.damage_can = True
         self.damage_time = 0.0
+        self.heart_time = 0.0
 
     def update(self):
         self.state_machine.update()
@@ -245,7 +243,10 @@ class Forager:
             elif x == 2:
                 self.bgm2.play(1)
 
-        if self.damage_can == False and pico2d.get_time() - self.damage_time >= 1.0:
+        if self.heart < 3 and pico2d.get_time() - self.heart_time >= 10.0:
+            self.heart += 1
+
+        if self.damage_can == False and pico2d.get_time() - self.damage_time >= 2.0:
             self.damage_can = True
 
         if self.coin >= 3 and self.phase == 1:
@@ -334,6 +335,8 @@ class Forager:
         elif group == 'forager:slime':
             if self.damage_can == True:
                 self.heart -= 1
-                self.damage_bgm.play()
+                damagescreen = DamageScreen()
+                game_world.add_object(damagescreen, 5)
                 self.damage_can = False
                 self.damage_time = pico2d.get_time()
+                self.heart_time = pico2d.get_time()
