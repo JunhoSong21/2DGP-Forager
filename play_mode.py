@@ -13,6 +13,7 @@ from grassland import *
 from playmodecoin import *
 
 from tree import *
+from rock import *
 
 def handle_events():
     global running, mousecursor, foragershadow
@@ -59,6 +60,9 @@ def init():
 
     tree1 = Tree() # 첫번째 나무
     game_world.add_object(tree1, 2)
+
+    rock1 = Rock() # 첫번째 바위
+    game_world.add_object(rock1, 2)
 
 
 def finish():
