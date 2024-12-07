@@ -1,4 +1,5 @@
 import game_framework
+import game_world
 import server
 import pico2d
 import random
@@ -29,6 +30,11 @@ class Slime:
         self.hp = 5
         self.font = pico2d.load_font('Sprites/DungGeunMo.ttf', 24)
 
+        self.bgm1 = pico2d.load_wav('Sounds/HitSlime.wav')
+        self.bgm2 = pico2d.load_wav('Sounds/HitSlime.wav')
+        self.bgm1.set_volume(32)
+        self.bgm2.set_volume(32)
+
     def draw(self):
         if (-112 < self.x - 960 < 112 and -112 < self.y - 540 < 112
             and -20 < server.mousecursor.x - self.x < 20 and -20 < server.mousecursor.y - self.y < 20):
@@ -41,6 +47,8 @@ class Slime:
         self.image.clip_draw(frameX, 0, 16, 16, self.x, self.y, 32, 32)
 
         pico2d.draw_rectangle(*self.get_bb())
+
+        self.font.draw(self.x - 5, self.y - 10, f'{self.hp}', (255, 255, 255))
 
     def update(self):
         self.x = 1920 - server.forager.x + self.cx
@@ -57,6 +65,12 @@ class Slime:
                 self.cy += 0.1
             elif self.y > 540:
                 self.cy -= 0.1
+
+        if self.hp == 0:
+            self.CursorOn = False
+            self.bgm1.play()
+            server.forager.coin += 3
+            game_world.remove_object(self)
 
     def get_bb(self):
         return self.x - 12, self.y - 15, self.x + 12, self.y
