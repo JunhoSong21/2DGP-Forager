@@ -58,7 +58,7 @@ def init():
     game_world.add_object(axe, 4)
 
     tree1 = Tree() # 첫번째 나무
-    game_world.add_object(tree1, 4)
+    game_world.add_object(tree1, 2)
 
 
 def finish():

@@ -238,4 +238,4 @@ class Forager:
         self.item = item
 
     def get_bb(self):
-        return 950, 552, 970, 572
+        return 947, 532, 973, 552
