@@ -209,6 +209,12 @@ class Forager:
         # 돌 자원
         self.rockCount = 0
 
+        # 철 자원
+        self.ironrockCount = 0
+
+        # 금 자원
+        self.goldrockCount = 0
+
     def update(self):
         self.state_machine.update()
         self.frame = (self.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 6
@@ -269,3 +275,7 @@ class Forager:
             self.woodCount += 2
         elif group == 'forager:rockdrop':
             self.rockCount += 1
+        elif group == 'forager:ironrockdrop':
+            self.ironrockCount += 2
+        elif group == 'forager:goldrockdrop':
+            self.goldrockCount += 2

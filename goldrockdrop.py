@@ -7,7 +7,7 @@ TIME_PER_ACTION = 0.7
 ACTION_PER_TIME = 1.0 / TIME_PER_ACTION
 FRAMES_PER_ACTION = 20
 
-class RockDrop:
+class GoldRockDrop:
     image = None
     bgm = None
 
@@ -17,13 +17,13 @@ class RockDrop:
         self.frame = 0
         self.CursorOn = False
 
-        if RockDrop.image == None:
-            RockDrop.image = pico2d.load_image('Sprites/StoneDrop.png')
+        if GoldRockDrop.image == None:
+            GoldRockDrop.image = pico2d.load_image('Sprites/GoldOreDrop.png')
 
-        if RockDrop.bgm == None:
-            RockDrop.font = pico2d.load_font('Sprites/DungGeunMo.ttf', 24)
-            RockDrop.bgm = pico2d.load_wav('Sounds/ItemPickUp.wav')
-            RockDrop.bgm.set_volume(32)
+        if GoldRockDrop.bgm == None:
+            GoldRockDrop.font = pico2d.load_font('Sprites/DungGeunMo.ttf', 24)
+            GoldRockDrop.bgm = pico2d.load_wav('Sounds/ItemPickUp.wav')
+            GoldRockDrop.bgm.set_volume(32)
 
     def draw(self):
         frameX = int(self.frame) * 38
@@ -42,10 +42,10 @@ class RockDrop:
         return self.x - 15, self.y - 15, self.x + 15, self.y + 15
     
     def handle_collision(self, group, other):
-        if group == 'forager:rockdrop':
-            RockDrop.bgm.play(1)
+        if group == 'forager:goldrockdrop':
+            GoldRockDrop.bgm.play(1)
             # siderectangle = SideRectangle()
             # siderectangle.item = 'WoodDrop'
             # game_world.add_object(siderectangle, 2)
-            server.forager.coin += 2
+            server.forager.coin += 1
             game_world.remove_object(self)
