@@ -15,6 +15,8 @@ from playmodecursor import *
 
 from tree import *
 from rock import *
+from goldrock import *
+from ironrock import *
 
 def handle_events():
     global running, foragershadow
@@ -59,14 +61,22 @@ def init():
     axe = Axe() # 캐릭터 도구
     game_world.add_object(axe, 4)
 
+    server.inventorycursor = PlayModeCursor() # 아래 인벤토리 커서
+    game_world.add_object(server.inventorycursor, 4)
+
     tree1 = Tree() # 첫번째 나무
     game_world.add_object(tree1, 2)
 
     rock1 = Rock() # 첫번째 바위
     game_world.add_object(rock1, 2)
 
-    server.inventorycursor = PlayModeCursor() # 아래 인벤토리 커서
-    game_world.add_object(server.inventorycursor, 4)
+    goldrock1 = GoldRock() # 첫번째 골드바위
+    game_world.add_object(goldrock1, 2)
+
+    ironrock1 = IronRock() # 첫번째 아이언바위
+    game_world.add_object(ironrock1, 2)
+
+    
 
 def finish():
     game_world.clear()
