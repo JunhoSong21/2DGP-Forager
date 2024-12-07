@@ -11,6 +11,7 @@ class PlayModeCursor:
     def __init__(self):
         self.x, self.y = 960, 50
         self.frame = 0
+        self.CursorOn = False
 
         if PlayModeCursor.image == None:
             PlayModeCursor.image = pico2d.load_image('Sprites/Cursor1x1.png')

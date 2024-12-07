@@ -19,7 +19,7 @@ from goldrock import *
 from ironrock import *
 
 def handle_events():
-    global running, foragershadow
+    global running, foragershadow, axe
 
     events = pico2d.get_events()
     for event in events:
@@ -34,8 +34,26 @@ def handle_events():
             elif event.x >= 960:
                 server.forager.imageDir = 1
 
+        if event.type == pico2d.SDL_MOUSEBUTTONDOWN and event.button == pico2d.SDL_BUTTON_LEFT:
+            axe.axeRotate += 2.0
+            x = random.randint(1, 3)
+            if x == 1:
+                axe.bgm1.play(1)
+            elif x == 2:
+                axe.bgm2.play(2)
+            elif x == 3:
+                axe.bgm3.play(3)
+
+            for layer in game_world.world:
+                for o in layer:
+                    if o.CursorOn == True:
+                        o.hp -= 1
+                        if o == Tree():
+                            pass
+
+
 def init():
-    global running, foragershadow
+    global running, foragershadow, axe
 
     running = True
 
@@ -75,8 +93,6 @@ def init():
 
     ironrock1 = IronRock() # 첫번째 아이언바위
     game_world.add_object(ironrock1, 2)
-
-    
 
 def finish():
     game_world.clear()

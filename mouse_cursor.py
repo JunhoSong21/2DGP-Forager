@@ -8,6 +8,7 @@ class MouseCursor:
     def __init__(self):
         self.x, self.y = 960, 540
         self.size = 0
+        self.CursorOn = False
 
         if MouseCursor.image == None:
             MouseCursor.image = pico2d.load_image('Sprites/MouseCursor.png')

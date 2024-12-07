@@ -9,6 +9,7 @@ class BackPack:
         self.frame = 0
         self.imageDir = 1
         self.moving = False
+        self.CursorOn = False
 
         if BackPack.image == None:
             BackPack.image = pico2d.load_image('Sprites/BackPack.png')

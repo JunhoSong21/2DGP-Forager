@@ -6,6 +6,8 @@ class PlayModeCoin:
 
     def __init__(self):
         self.x, self.y = 50, 50
+        self.CursorOn = False
+        
         if PlayModeCoin.image == None:
             PlayModeCoin.image = pico2d.load_image('Sprites/Coin.png')
 

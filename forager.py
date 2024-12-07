@@ -158,6 +158,7 @@ class Forager:
         self.imageDir = 1
         self.moving = False
         self.speed = 0
+        self.CursorOn = False
         self.state_machine = StateMachine(self)
         self.state_machine.start(Idle)
         self.state_machine.set_transitions(
@@ -174,29 +175,33 @@ class Forager:
             }
         )
 
+        #걷는소리 2종 랜덤
         self.bgm1 = pico2d.load_wav('Sounds/Walk1.wav')
         self.bgm2 = pico2d.load_wav('Sounds/Walk2.wav')
         self.bgm1.set_volume(32)
         self.bgm2.set_volume(32)
         
-
+        #화면 좌상단 하트
         self.image_heart = pico2d.load_image('Sprites/Heart.png')
         self.heart_x, self.heart_y = 40, 1040
         self.heart = 3
 
+        #화면 좌하단 코인
         self.image_coin = pico2d.load_image('Sprites/Coin.png')
         self.coin_x, self.coin_y = 40, 40
         self.coin = 0
 
+        #코인 숫자
         self.font_coin = pico2d.load_font('Sprites/DungGeunMo.ttf', 60)
         self.font_coin.x, self.font_coin.y = 90, 45
 
+        #화면 하단 인벤토리
         self.image_useItemSlot = pico2d.load_image('Sprites/PlaymodeInventory.png')
         self.useItemSlot_x, self.useItemSlot_y = 960, 50
         self.image_useItem = pico2d.load_image('Sprites/Pickaxe.png')
         
-        self.useItemSlot = 1
-        self.useItemCount = 1
+        self.useItemSlot = 1 # 사용중인 아이템 슬롯
+        self.useItemCount = 1 # 인벤토리 아이템 개수
 
     def update(self):
         self.state_machine.update()

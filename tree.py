@@ -15,6 +15,8 @@ class Tree:
         self.CursorOn = False
         self.hp = 10
 
+        self.font = pico2d.load_font('Sprites/DungGeunMo.ttf', 24)
+
     def draw(self):
         if (-112 < self.x - 960 < 112 and -112 < self.y - 540 < 112
             and -20 < server.mousecursor.x - self.x < 20 and -20 < server.mousecursor.y - self.y < 20):
@@ -25,6 +27,9 @@ class Tree:
 
         self.image.draw(self.x, self.y + 32, 117, 132)
         pico2d.draw_rectangle(*self.get_bb())
+
+        self.font.draw(self.x - 15, self.y - 10, f'{self.hp}', (255, 255, 255))
+
 
     def update(self):
         self.x = 1920 - server.forager.x + self.cx

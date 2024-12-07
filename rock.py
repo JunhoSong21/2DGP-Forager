@@ -15,7 +15,7 @@ class Rock:
 
         self.imageCursor = pico2d.load_image('Sprites/ObjectCursor.png')
         self.CursorOn = False
-        self.hp = 15
+        self.hp = 9
 
     def draw(self):
         if (-112 < self.x - 960 < 112 and -112 < self.y - 540 < 112
