@@ -1,3 +1,5 @@
+import game_framework
+import game_world
 import pico2d
 import server
 
@@ -14,13 +16,14 @@ class Tree:
         self.imageCursor = pico2d.load_image('Sprites/ObjectCursor.png')
         self.CursorOn = False
         self.hp = 10
-
         self.font = pico2d.load_font('Sprites/DungGeunMo.ttf', 24)
 
         self.bgm1 = pico2d.load_wav('Sounds/HitTree1.wav')
         self.bgm2 = pico2d.load_wav('Sounds/HitTree2.wav')
+        self.destroy = pico2d.load_wav('Sounds/TreeDestroy.wav')
         self.bgm1.set_volume(32)
         self.bgm2.set_volume(32)
+        self.destroy.set_volume(32)
 
     def draw(self):
         if (-112 < self.x - 960 < 112 and -112 < self.y - 540 < 112
@@ -38,6 +41,11 @@ class Tree:
     def update(self):
         self.x = 1920 - server.forager.x + self.cx
         self.y = 1080 - server.forager.y + self.cy
+
+        if self.hp == 0:
+            self.destroy.play(1)
+            self.CursorOn = False
+            game_world.remove_object(self)
 
     def get_bb(self):
         return self.x - 16, self.y - 24, self.x + 12, self.y + 2

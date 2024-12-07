@@ -27,7 +27,7 @@ class Axe:
     def draw(self):
         if self.imageDir == -1:
             if self.frame == 0:
-                self.image.draw(self.x + 12, self.y, 54, 54)
+                self.image.clip_composite_draw(0, 0, 18, 18, self.axeRotate, '', self.x + 12, self.y, 54, 54)
         elif self.imageDir == 1:
             if self.frame == 0:
                 self.image.clip_composite_draw(0, 0, 18, 18, -self.axeRotate, 'h', self.x - 12, self.y, 54, 54)

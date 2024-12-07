@@ -14,9 +14,11 @@ from playmodecoin import *
 from playmodecursor import *
 
 from tree import *
+from treedrop import *
 from rock import *
 from goldrock import *
 from ironrock import *
+
 
 def handle_events():
     global running, foragershadow, axe, tree1
@@ -34,6 +36,7 @@ def handle_events():
             elif event.x >= 960:
                 server.forager.imageDir = 1
 
+
         if event.type == pico2d.SDL_MOUSEBUTTONDOWN and event.button == pico2d.SDL_BUTTON_LEFT:
             axe.axeRotate += 2.0
             x = random.randint(1, 3)
@@ -48,16 +51,15 @@ def handle_events():
                 for o in layer:
                     if o.CursorOn == True:
                         o.hp -= 1
-                        if o == tree1:
-                            x = random.randint(1, 2)
-                            if x == 1:
-                                o.bgm1.play(1)
-                            elif x == 2:
-                                o.bgm2.play(2)
+                        x = random.randint(1, 2)
+                        if x == 1:
+                            o.bgm1.play(1)
+                        elif x == 2:
+                            o.bgm2.play(2)
 
 
 def init():
-    global running, foragershadow, axe, tree1
+    global running, foragershadow, axe, tree1, treedrop1
 
     running = True
 
@@ -98,10 +100,15 @@ def init():
     ironrock1 = IronRock() # 첫번째 아이언바위
     game_world.add_object(ironrock1, 2)
 
+    treedrop1 = TreeDrop() # 나무드롭물
+
 def finish():
     game_world.clear()
 
 def update():
+    if tree1.hp == 0:
+        game_world.add_object(treedrop1, 2)
+        treedrop1.cx, treedrop1.cy = tree1.cx, tree1.cy
     game_world.update()
 
 def draw():
