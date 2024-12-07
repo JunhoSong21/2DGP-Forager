@@ -6,6 +6,7 @@ class DruidTree:
 
     def __init__(self):
         self.x, self.y = 540, 200
+        self.CursorOn = False
 
         if DruidTree.image == None:
             DruidTree.image = pico2d.load_image('Sprites/DruidTree.png')

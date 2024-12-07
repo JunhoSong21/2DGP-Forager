@@ -192,7 +192,7 @@ class Forager:
         #화면 좌하단 코인
         self.image_coin = pico2d.load_image('Sprites/Coin.png')
         self.coin_x, self.coin_y = 40, 40
-        self.coin = 9
+        self.coin = 0
 
         #코인 숫자
         self.font_coin = pico2d.load_font('Sprites/DungGeunMo.ttf', 60)
@@ -227,7 +227,7 @@ class Forager:
         self.x += math.cos(self.dir) * self.speed * game_framework.frame_time
         self.y += math.sin(self.dir) * self.speed * game_framework.frame_time
         
-        if self.moving == True and int(self.frame) == 2 or 5:
+        if self.moving == True and int(self.frame) == 2:
             x = random.randint(1, 2)
 
             if x == 1:
@@ -235,13 +235,23 @@ class Forager:
             elif x == 2:
                 self.bgm2.play(1)
 
-        if self.coin >= 10 and self.phase == 1:
-            self.coin -= 10
+        if self.coin >= 3 and self.phase == 1:
+            self.coin -= 3
             grassland2 = GrassLand()
             game_world.add_object(grassland2, 1)
-            grassland2.x, grassland2.y = 540, 0
+            grassland2.x, grassland2.y = 560, 0
             druidtree = DruidTree()
             game_world.add_object(druidtree, 2)
+            self.phase = 2
+        elif self.coin >= 5 and self.phase == 2:
+            self.coin -= 5
+            grassland3 = GrassLand()
+            game_world.add_object(grassland3, 1)
+            grassland3.x, grassland3.y = 0, -560
+            grassland4 = GrassLand()
+            game_world.add_object(grassland4, 1)
+            grassland4.x, grassland4.y = 560, -560
+            self.phase = 3
 
     def add_event(self, event):
         self.state_machine.add_event(('INPUT', event))
