@@ -2,6 +2,7 @@ import game_framework
 import game_world
 import pico2d
 import server
+from treedrop import *
 
 class Tree:
     image = None
@@ -45,6 +46,9 @@ class Tree:
         if self.hp == 0:
             self.destroy.play(1)
             self.CursorOn = False
+            treedrop = TreeDrop()
+            game_world.add_object(treedrop, 2)
+            treedrop.cx, treedrop.cy = self.cx, self.cy
             game_world.remove_object(self)
 
     def get_bb(self):

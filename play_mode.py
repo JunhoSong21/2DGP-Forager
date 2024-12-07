@@ -19,7 +19,6 @@ from rock import *
 from goldrock import *
 from ironrock import *
 
-
 def handle_events():
     global running, foragershadow, axe, tree1
 
@@ -106,9 +105,6 @@ def finish():
     game_world.clear()
 
 def update():
-    if tree1.hp == 0:
-        game_world.add_object(treedrop1, 2)
-        treedrop1.cx, treedrop1.cy = tree1.cx, tree1.cy
     game_world.update()
 
 def draw():
