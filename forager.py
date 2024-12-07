@@ -190,7 +190,10 @@ class Forager:
 
         self.font_coin = pico2d.load_font('Sprites/DungGeunMo.ttf', 60)
         self.font_coin.x, self.font_coin.y = 100, 40
-        self.itemCount = 1
+
+        self.image_useItemSlot = pico2d.load_image('Sprites/PlaymodeInventory.png')
+        self.useItemSlot_x, self.useItemSlot_y = 960, 50
+        self.useItemCount = 1
 
     def update(self):
         self.state_machine.update()
@@ -236,6 +239,10 @@ class Forager:
 
         self.image_coin.draw(self.coin_x, self.coin_y, 90, 90)
         self.font_coin.draw(self.font_coin.x, self.font_coin.y, f'{self.coin}', (255, 255, 255))
+
+        if self.useItemCount == 1:
+            self.image_useItemSlot.draw(self.useItemSlot_x, self.useItemSlot_y, 100, 100)
+
 
     def set_item(self, item):
         self.item = item
