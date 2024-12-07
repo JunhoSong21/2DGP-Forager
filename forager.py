@@ -189,10 +189,11 @@ class Forager:
         self.coin = 0
 
         self.font_coin = pico2d.load_font('Sprites/DungGeunMo.ttf', 60)
-        self.font_coin.x, self.font_coin.y = 100, 40
+        self.font_coin.x, self.font_coin.y = 90, 45
 
         self.image_useItemSlot = pico2d.load_image('Sprites/PlaymodeInventory.png')
         self.useItemSlot_x, self.useItemSlot_y = 960, 50
+        self.image_useItem = pico2d.load_image('Sprites/Pickaxe.png')
         
         self.useItemSlot = 1
         self.useItemCount = 1
@@ -244,6 +245,7 @@ class Forager:
 
         if self.useItemCount == 1:
             self.image_useItemSlot.draw(self.useItemSlot_x, self.useItemSlot_y, 100, 100)
+            self.image_useItem.draw(self.useItemSlot_x, self.useItemSlot_y, 100, 100)
 
     def set_item(self, item):
         self.item = item
