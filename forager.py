@@ -193,6 +193,8 @@ class Forager:
 
         self.image_useItemSlot = pico2d.load_image('Sprites/PlaymodeInventory.png')
         self.useItemSlot_x, self.useItemSlot_y = 960, 50
+        
+        self.useItemSlot = 1
         self.useItemCount = 1
 
     def update(self):
@@ -242,7 +244,6 @@ class Forager:
 
         if self.useItemCount == 1:
             self.image_useItemSlot.draw(self.useItemSlot_x, self.useItemSlot_y, 100, 100)
-
 
     def set_item(self, item):
         self.item = item

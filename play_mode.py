@@ -11,6 +11,7 @@ from backpack import *
 from axe import *
 from grassland import *
 from playmodecoin import *
+from playmodecursor import *
 
 from tree import *
 from rock import *
@@ -64,6 +65,8 @@ def init():
     rock1 = Rock() # 첫번째 바위
     game_world.add_object(rock1, 2)
 
+    server.inventorycursor = PlayModeCursor() # 아래 인벤토리 커서
+    game_world.add_object(server.inventorycursor, 4)
 
 def finish():
     game_world.clear()
