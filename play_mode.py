@@ -20,7 +20,7 @@ from goldrock import *
 from ironrock import *
 
 def handle_events():
-    global running, foragershadow, axe, tree1
+    global running, foragershadow, axe
 
     events = pico2d.get_events()
     for event in events:
@@ -58,7 +58,7 @@ def handle_events():
 
 
 def init():
-    global running, foragershadow, axe, tree1, treedrop1
+    global running, foragershadow, axe
 
     running = True
 
@@ -87,19 +87,65 @@ def init():
     server.inventorycursor = PlayModeCursor() # 아래 인벤토리 커서
     game_world.add_object(server.inventorycursor, 4)
 
-    tree1 = Tree() # 첫번째 나무
+    tree1 = Tree() # 첫번째 나무 1번줄 시작
     game_world.add_object(tree1, 2)
 
-    rock1 = Rock() # 첫번째 바위
+    tree2 = Tree() # 두번째 나무 1번줄
+    game_world.add_object(tree2, 2)
+    tree2.cx = -196
+
+    tree3 = Tree() # 세번째 나무 1번줄
+    game_world.add_object(tree3, 2)
+    tree3.cx = -84
+
+    rock1 = Rock() # 첫번째 바위 1번줄 끝
     game_world.add_object(rock1, 2)
 
-    goldrock1 = GoldRock() # 첫번째 골드바위
+    goldrock1 = GoldRock() # 첫번째 골드바위 2번줄
     game_world.add_object(goldrock1, 2)
 
-    ironrock1 = IronRock() # 첫번째 아이언바위
+    ironrock1 = IronRock() # 첫번째 아이언바위 6번줄
     game_world.add_object(ironrock1, 2)
 
-    treedrop1 = TreeDrop() # 나무드롭물
+    ironrock2 = IronRock()
+    game_world.add_object(ironrock2, 2)
+    ironrock2.cx, ironrock2.cy = 112, 56
+
+    rock2 = Rock()
+    game_world.add_object(rock2, 2)
+    rock2.cx, rock2.cy = -140, 140
+
+    goldrock2 = GoldRock()
+    game_world.add_object(goldrock2, 2)
+    goldrock2.cx, goldrock2.cy = 0, 168
+
+    tree4 = Tree()
+    game_world.add_object(tree4, 2)
+    tree4.cx, tree4.cy = 28, -56
+
+    tree5 = Tree()
+    game_world.add_object(tree5, 2)
+    tree5.cx, tree5.cy = -28, -252
+
+    rock3 = Rock()
+    game_world.add_object(rock3, 2)
+    rock3.cx, rock3.cy = -84, 0
+
+    rock4 = Rock()
+    game_world.add_object(rock4, 2)
+    rock4.cx, rock4.cy = -168, -140
+
+    ironrock3 = IronRock()
+    game_world.add_object(ironrock3, 2)
+    ironrock3.cx, ironrock3.cy = -224, -224
+
+    tree6 = Tree()
+    game_world.add_object(tree6, 2)
+    tree6.cx, tree6.cy = 0, 0
+
+    tree7 = Tree()
+    game_world.add_object(tree7, 2)
+    tree7.cx, tree7.cy = 224, -224
 
 def finish():
     game_world.clear()

@@ -58,8 +58,8 @@ class GoldRock:
             goldrockdrop = GoldRockDrop()
             game_world.add_object(goldrockdrop, 2)
             goldrockdrop.cx, goldrockdrop.cy = self.cx, self.cy
-            game_world.add_collision_pair('forager:rockdrop', None, goldrockdrop)
-            game_world.add_collision_pair('forager:rockdrop', server.forager, None)
+            game_world.add_collision_pair('forager:goldrockdrop', None, goldrockdrop)
+            game_world.add_collision_pair('forager:goldrockdrop', server.forager, None)
             game_world.remove_object(self)
 
     def get_bb(self):
