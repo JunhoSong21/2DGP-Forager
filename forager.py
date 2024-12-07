@@ -188,6 +188,8 @@ class Forager:
         self.coin_x, self.coin_y = 40, 40
         self.coin = 0
 
+        self.font_coin = pico2d.load_font('Sprites/DungGeunMo.ttf', 60)
+        self.font_coin.x, self.font_coin.y = 100, 40
         self.itemCount = 1
 
     def update(self):
@@ -233,6 +235,7 @@ class Forager:
         pico2d.draw_rectangle(*self.get_bb())
 
         self.image_coin.draw(self.coin_x, self.coin_y, 90, 90)
+        self.font_coin.draw(self.font_coin.x, self.font_coin.y, f'{self.coin}', (255, 255, 255))
 
     def set_item(self, item):
         self.item = item
