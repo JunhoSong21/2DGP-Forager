@@ -7,7 +7,7 @@ class Rock:
 
     def __init__(self):
         self.x, self.y = 0, 0
-        self.cx, self.cy = -224, 252
+        self.cx, self.cy = 252, 252
         self.style = random.randint(1, 2)
 
         if Rock.image == None:
