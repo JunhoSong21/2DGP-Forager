@@ -6,6 +6,7 @@ from treedrop import *
 
 class Tree:
     image = None
+    destroy = None
 
     def __init__(self):
         self.x, self.y = 0, 0
@@ -21,10 +22,12 @@ class Tree:
 
         self.bgm1 = pico2d.load_wav('Sounds/HitTree1.wav')
         self.bgm2 = pico2d.load_wav('Sounds/HitTree2.wav')
-        self.destroy = pico2d.load_wav('Sounds/TreeDestroy.wav')
         self.bgm1.set_volume(32)
         self.bgm2.set_volume(32)
-        self.destroy.set_volume(32)
+        
+        if Tree.destroy == None:
+            Tree.destroy = pico2d.load_wav('Sounds/TreeDestroy.wav')
+            Tree.destroy.set_volume(60)
 
     def draw(self):
         if (-112 < self.x - 960 < 112 and -112 < self.y - 540 < 112
@@ -44,11 +47,13 @@ class Tree:
         self.y = 1080 - server.forager.y + self.cy
 
         if self.hp == 0:
-            self.destroy.play(1)
+            Tree.destroy.play()
             self.CursorOn = False
             treedrop = TreeDrop()
             game_world.add_object(treedrop, 2)
             treedrop.cx, treedrop.cy = self.cx, self.cy
+            game_world.add_collision_pair('forager:treedrop', None, treedrop)
+            game_world.add_collision_pair('forager:treedrop', server.forager, None)
             game_world.remove_object(self)
 
     def get_bb(self):

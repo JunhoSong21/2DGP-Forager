@@ -106,6 +106,7 @@ def finish():
 
 def update():
     game_world.update()
+    game_world.handle_collisions()
 
 def draw():
     pico2d.clear_canvas()

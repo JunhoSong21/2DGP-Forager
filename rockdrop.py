@@ -3,13 +3,11 @@ import game_world
 import pico2d
 import server
 
-from siderectangle import *
-
 TIME_PER_ACTION = 0.7
 ACTION_PER_TIME = 1.0 / TIME_PER_ACTION
 FRAMES_PER_ACTION = 20
 
-class TreeDrop:
+class RockDrop:
     image = None
     bgm = None
 
@@ -19,19 +17,19 @@ class TreeDrop:
         self.frame = 0
         self.CursorOn = False
 
-        if TreeDrop.image == None:
-            TreeDrop.image = pico2d.load_image('Sprites/WoodDrop.png')
+        if RockDrop.image == None:
+            RockDrop.image = pico2d.load_image('Sprites/StoneDrop.png')
 
-        if TreeDrop.bgm == None:
-            TreeDrop.font = pico2d.load_font('Sprites/DungGeunMo.ttf', 24)
-            TreeDrop.bgm = pico2d.load_wav('Sounds/ItemPickUp.wav')
-            TreeDrop.bgm.set_volume(32)
+        if RockDrop.bgm == None:
+            RockDrop.font = pico2d.load_font('Sprites/DungGeunMo.ttf', 24)
+            RockDrop.bgm = pico2d.load_wav('Sounds/ItemPickUp.wav')
+            RockDrop.bgm.set_volume(32)
 
     def draw(self):
-        frameX = int(self.frame) * 18
+        frameX = int(self.frame) * 38
 
-        self.image.clip_draw(frameX, 0, 18, 18, self.x, self.y, 36, 36)
-        self.font.draw(self.x + 10, self.y - 15, f'x2', (255, 255, 255))
+        self.image.clip_draw(frameX, 0, 38, 38, self.x, self.y, 76, 76)
+
         pico2d.draw_rectangle(*self.get_bb())
 
     def update(self):
@@ -44,10 +42,10 @@ class TreeDrop:
         return self.x - 15, self.y - 15, self.x + 15, self.y + 15
     
     def handle_collision(self, group, other):
-        if group == 'forager:treedrop':
-            TreeDrop.bgm.play(1)
+        if group == 'forager:rockdrop':
+            RockDrop.bgm.play(1)
             # siderectangle = SideRectangle()
             # siderectangle.item = 'WoodDrop'
             # game_world.add_object(siderectangle, 2)
-            server.forager.coin += 1
+            server.forager.coin += 3
             game_world.remove_object(self)

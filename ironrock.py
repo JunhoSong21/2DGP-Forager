@@ -1,3 +1,4 @@
+import game_world
 import pico2d
 import server
 import random

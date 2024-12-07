@@ -203,6 +203,12 @@ class Forager:
         self.useItemSlot = 1 # 사용중인 아이템 슬롯
         self.useItemCount = 1 # 인벤토리 아이템 개수
 
+        # 나무 자원
+        self.woodCount = 0
+
+        # 돌 자원
+        self.rockCount = 0
+
     def update(self):
         self.state_machine.update()
         self.frame = (self.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 6
@@ -257,3 +263,9 @@ class Forager:
 
     def get_bb(self):
         return 947, 532, 973, 552
+    
+    def handle_collision(self, group, other):
+        if group == 'forager:treedrop':
+            self.woodCount += 2
+        elif group == 'forager:rockdrop':
+            self.rockCount += 1
