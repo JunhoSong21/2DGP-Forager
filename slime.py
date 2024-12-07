@@ -1,6 +1,7 @@
 import game_framework
 import server
 import pico2d
+import random
 
 TIME_PER_ACTION = 0.7
 ACTION_PER_TIME = 1.0 / TIME_PER_ACTION
@@ -12,7 +13,7 @@ class Slime:
     def __init__(self):
         self.x, self.y = 0, 0
         self.cx, self.cy = 0, 0
-        self.frame = 0
+        self.frame = random.randint(0, 4)
         self.CursorOn = False
 
         if Slime.image == None:
@@ -32,3 +33,7 @@ class Slime:
 
     def get_bb(self):
         return self.x - 12, self.y - 15, self.x + 12, self.y
+    
+    def handle_collision(self, group, other):
+        if group == 'forager:slime':
+            pass

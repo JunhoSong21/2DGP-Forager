@@ -203,6 +203,7 @@ class Forager:
         self.image_useItemSlot = pico2d.load_image('Sprites/PlaymodeInventory.png')
         self.useItemSlot_x, self.useItemSlot_y = 960, 50
         self.image_useItem = pico2d.load_image('Sprites/Pickaxe.png')
+        #self.image_useItem2 = pico2d.load_image('Sprites/Sword1.png')
         
         self.useItemSlot = 1 # 사용중인 아이템 슬롯
         self.useItemCount = 1 # 인벤토리 아이템 개수
@@ -222,6 +223,14 @@ class Forager:
         # 진행 페이즈
         self.phase = 1
 
+        # 피격 사운드
+        self.damage_bgm = pico2d.load_wav('Sounds/PlayerDamage.wav')
+        self.damage_bgm.set_volume(60)
+
+        # 피격 간격 조절
+        self.damage_can = True
+        self.damage_time = 0.0
+
     def update(self):
         self.state_machine.update()
         self.frame = (self.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 6
@@ -235,6 +244,9 @@ class Forager:
                 self.bgm1.play(1)
             elif x == 2:
                 self.bgm2.play(1)
+
+        if self.damage_can == False and pico2d.get_time() - self.damage_time >= 1.0:
+            self.damage_can = True
 
         if self.coin >= 3 and self.phase == 1:
             self.coin -= 3
@@ -260,8 +272,11 @@ class Forager:
                 slime.cx = random.randint(-280, 280)
                 slime.cy = random.randint(-840, -280)
                 game_world.add_object(slime, 2)
+                game_world.add_collision_pair('forager:slime', None, slime)
+                game_world.add_collision_pair('forager:slime', server.forager, None)
 
             self.phase = 3
+            #self.useItemCount = 2
 
     def add_event(self, event):
         self.state_machine.add_event(('INPUT', event))
@@ -297,6 +312,9 @@ class Forager:
         if self.useItemCount == 1:
             self.image_useItemSlot.draw(self.useItemSlot_x, self.useItemSlot_y, 100, 100)
             self.image_useItem.draw(self.useItemSlot_x, self.useItemSlot_y, 100, 100)
+        # elif self.useItemCount == 2:
+        #     self.image_useItemSlot.draw(self.useItemSlot_x - 50, self.useItemSlot_y, 100, 100)
+        #     self.image_useItemSlot.draw(self.useItemSlot_x + 50, self.useItemSlot_y, 100, 100)
 
     def set_item(self, item):
         self.item = item
@@ -313,3 +331,9 @@ class Forager:
             self.ironrockCount += 2
         elif group == 'forager:goldrockdrop':
             self.goldrockCount += 2
+        elif group == 'forager:slime':
+            if self.damage_can == True:
+                self.heart -= 1
+                self.damage_bgm.play()
+                self.damage_can = False
+                self.damage_time = pico2d.get_time()
