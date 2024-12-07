@@ -19,7 +19,7 @@ from goldrock import *
 from ironrock import *
 
 def handle_events():
-    global running, foragershadow, axe
+    global running, foragershadow, axe, tree1
 
     events = pico2d.get_events()
     for event in events:
@@ -48,12 +48,16 @@ def handle_events():
                 for o in layer:
                     if o.CursorOn == True:
                         o.hp -= 1
-                        if o == Tree():
-                            pass
+                        if o == tree1:
+                            x = random.randint(1, 2)
+                            if x == 1:
+                                o.bgm1.play(1)
+                            elif x == 2:
+                                o.bgm2.play(2)
 
 
 def init():
-    global running, foragershadow, axe
+    global running, foragershadow, axe, tree1
 
     running = True
 

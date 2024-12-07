@@ -17,6 +17,11 @@ class Rock:
         self.CursorOn = False
         self.hp = 9
 
+        self.bgm1 = pico2d.load_wav('Sounds/HitRock1.wav')
+        self.bgm2 = pico2d.load_wav('Sounds/HitRock2.wav')
+        self.bgm1.set_volume(32)
+        self.bgm2.set_volume(32)
+
     def draw(self):
         if (-112 < self.x - 960 < 112 and -112 < self.y - 540 < 112
             and -20 < server.mousecursor.x - self.x < 20 and -20 < server.mousecursor.y - self.y < 20):
