@@ -16,7 +16,7 @@ from tree import *
 from rock import *
 
 def handle_events():
-    global running, mousecursor, foragershadow
+    global running, foragershadow
 
     events = pico2d.get_events()
     for event in events:
@@ -24,7 +24,7 @@ def handle_events():
             server.forager.add_event(event)
 
         if event.type == pico2d.SDL_MOUSEMOTION:
-            mousecursor.x, mousecursor.y = event.x, 1080 - event.y
+            server.mousecursor.x, server.mousecursor.y = event.x, 1080 - event.y
 
             if event.x < 960:
                 server.forager.imageDir = -1
@@ -32,13 +32,13 @@ def handle_events():
                 server.forager.imageDir = 1
 
 def init():
-    global running, mousecursor, foragershadow
+    global running, foragershadow
 
     running = True
 
-    mousecursor = MouseCursor() #마우스 커서
-    game_world.add_object(mousecursor, 5)
-    mousecursor.size = 1
+    server.mousecursor = MouseCursor() #마우스 커서
+    game_world.add_object(server.mousecursor, 5)
+    server.mousecursor.size = 1
 
     background = BackGround() # 바다
     game_world.add_object(background, 0)

@@ -13,6 +13,8 @@ class Rock:
         if Rock.image == None:
             Rock.image = pico2d.load_image('Sprites/Rock.png')
 
+        self.hp = 15
+
     def draw(self):
         if self.style == 1:
             self.image.clip_draw(0, 0, 20, 20, self.x, self.y, 60, 60)
