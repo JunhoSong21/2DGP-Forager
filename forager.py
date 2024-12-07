@@ -7,6 +7,7 @@ import random
 
 from grassland import *
 from druidtree import *
+from slime import *
 
 TIME_PER_ACTION = 0.7
 ACTION_PER_TIME = 1.0 / TIME_PER_ACTION
@@ -245,12 +246,18 @@ class Forager:
             self.phase = 2
         elif self.coin >= 5 and self.phase == 2:
             self.coin -= 5
+
             grassland3 = GrassLand()
             game_world.add_object(grassland3, 1)
             grassland3.x, grassland3.y = 0, -560
+
             grassland4 = GrassLand()
             game_world.add_object(grassland4, 1)
             grassland4.x, grassland4.y = 560, -560
+
+            slime1 = Slime()
+            game_world.add_object(slime1, 2)
+
             self.phase = 3
 
     def add_event(self, event):
