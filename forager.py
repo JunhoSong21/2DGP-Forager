@@ -3,7 +3,7 @@ import game_world
 import pico2d
 from state_machine import *
 import math
-import server
+import random
 
 TIME_PER_ACTION = 0.5
 ACTION_PER_TIME = 1.0 / TIME_PER_ACTION
@@ -174,6 +174,12 @@ class Forager:
             }
         )
 
+        self.bgm1 = pico2d.load_wav('Sounds/Walk1.wav')
+        self.bgm2 = pico2d.load_wav('Sounds/Walk2.wav')
+        self.bgm1.set_volume(32)
+        self.bgm2.set_volume(32)
+        
+
         self.image_heart = pico2d.load_image('Sprites/Heart.png')
         self.heart_x, self.heart_y = 40, 1040
         self.heart = 3
@@ -189,6 +195,14 @@ class Forager:
         self.frame = (self.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 6
         self.x += math.cos(self.dir) * self.speed * game_framework.frame_time
         self.y += math.sin(self.dir) * self.speed * game_framework.frame_time
+        
+        if self.moving == True and int(self.frame) == 3 :
+            x = random.randint(1, 2)
+
+            if x == 1:
+                self.bgm1.play(1)
+            elif x == 2:
+                self.bgm2.play(1)
 
     def add_event(self, event):
         self.state_machine.add_event(('INPUT', event))
@@ -216,7 +230,12 @@ class Forager:
         if self.heart >= 3:
             self.image_heart.clip_draw(0, 0, 36, 36, self.heart_x + 130, self.heart_y, 60, 60)
 
+        pico2d.draw_rectangle(*self.get_bb())
+
         self.image_coin.draw(self.coin_x, self.coin_y, 90, 90)
 
     def set_item(self, item):
         self.item = item
+
+    def get_bb(self):
+        return 950, 552, 970, 572

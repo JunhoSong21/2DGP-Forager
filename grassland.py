@@ -7,7 +7,7 @@ class GrassLand:
         self.image = pico2d.load_image('Sprites/GrassLandSquare.png')    
 
     def draw(self):
-        self.image.draw(1920 - server.forager.x, 1080 - server.forager.y, 560, 588)
+        self.image.draw(1920 - server.forager.x, 1052 - server.forager.y, 560, 588)
 
     def update(self):
         pass

@@ -12,6 +12,8 @@ from axe import *
 from grassland import *
 from playmodecoin import *
 
+from tree import *
+
 def handle_events():
     global running, mousecursor, foragershadow
 
@@ -34,7 +36,7 @@ def init():
     running = True
 
     mousecursor = MouseCursor() #마우스 커서
-    game_world.add_object(mousecursor, 4)
+    game_world.add_object(mousecursor, 5)
     mousecursor.size = 1
 
     background = BackGround() # 바다
@@ -54,6 +56,10 @@ def init():
 
     axe = Axe() # 캐릭터 도구
     game_world.add_object(axe, 4)
+
+    tree1 = Tree() # 첫번째 나무
+    game_world.add_object(tree1, 4)
+
 
 def finish():
     game_world.clear()
