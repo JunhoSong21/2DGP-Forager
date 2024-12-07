@@ -11,7 +11,7 @@ class Slime:
 
     def __init__(self):
         self.x, self.y = 0, 0
-        self.cx, self.cy = 0, -200
+        self.cx, self.cy = 0, 0
         self.frame = 0
         self.CursorOn = False
 
@@ -22,8 +22,13 @@ class Slime:
         frameX = int(self.frame) * 16
         self.image.clip_draw(frameX, 0, 16, 16, self.x, self.y, 32, 32)
 
+        pico2d.draw_rectangle(*self.get_bb())
+
     def update(self):
         self.x = 1920 - server.forager.x + self.cx
         self.y = 1080 - server.forager.y + self.cy
 
         self.frame = (self.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 5
+
+    def get_bb(self):
+        return self.x - 12, self.y - 15, self.x + 12, self.y

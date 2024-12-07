@@ -193,7 +193,7 @@ class Forager:
         #화면 좌하단 코인
         self.image_coin = pico2d.load_image('Sprites/Coin.png')
         self.coin_x, self.coin_y = 40, 40
-        self.coin = 0
+        self.coin = 8
 
         #코인 숫자
         self.font_coin = pico2d.load_font('Sprites/DungGeunMo.ttf', 60)
@@ -255,8 +255,11 @@ class Forager:
             game_world.add_object(grassland4, 1)
             grassland4.x, grassland4.y = 560, -560
 
-            slime1 = Slime()
-            game_world.add_object(slime1, 2)
+            slimes = [Slime() for _ in range(5)]
+            for slime in slimes:
+                slime.cx = random.randint(-280, 280)
+                slime.cy = random.randint(-840, -280)
+                game_world.add_object(slime, 2)
 
             self.phase = 3
 
