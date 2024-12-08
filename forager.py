@@ -6,8 +6,11 @@ import math
 import random
 
 from grassland import *
+from tree import *
 from druidtree import *
 from slime import *
+from demon import *
+from firetempleenter import *
 from damagescreen import *
 
 TIME_PER_ACTION = 0.7
@@ -194,7 +197,7 @@ class Forager:
         #화면 좌하단 코인
         self.image_coin = pico2d.load_image('Sprites/Coin.png')
         self.coin_x, self.coin_y = 40, 40
-        self.coin = 8
+        self.coin = 0
 
         #코인 숫자
         self.font_coin = pico2d.load_font('Sprites/DungGeunMo.ttf', 60)
@@ -249,16 +252,23 @@ class Forager:
         if self.damage_can == False and pico2d.get_time() - self.damage_time >= 2.0:
             self.damage_can = True
 
-        if self.coin >= 3 and self.phase == 1:
+        if self.coin >= 3 and self.phase == 1: # 두번째 페이즈
             self.coin -= 3
+
             grassland2 = GrassLand()
             game_world.add_object(grassland2, 1)
             grassland2.x, grassland2.y = 560, 0
             druidtree = DruidTree()
             game_world.add_object(druidtree, 2)
+            tree = Tree()
+            game_world.add_object(tree, 2)
+            tree.cx, tree.cy = 560, -254
+
             self.phase = 2
+
         elif self.coin >= 5 and self.phase == 2:
             self.coin -= 5
+            self.phase = 3
 
             grassland3 = GrassLand()
             game_world.add_object(grassland3, 1)
@@ -276,8 +286,30 @@ class Forager:
                 game_world.add_collision_pair('forager:slime', None, slime)
                 game_world.add_collision_pair('forager:slime', server.forager, None)
 
-            self.phase = 3
+            firetemple = FireTempleEnter()
+            game_world.add_object(firetemple, 2)
             #self.useItemCount = 2
+
+        elif self.phase == 4:
+            self.phase = 5
+            demons = [Demon() for _ in range(6)]
+            for demon in demons:
+                demon.cx = random.randint(-240, 240)
+                demon.cy = random.randint(100, 450)
+                game_world.add_object(demon, 2)
+                game_world.add_collision_pair('forager:demon', None, demon)
+                game_world.add_collision_pair('forager:demon', server.forager, None)
+
+        if self.phase == 1:
+            self.x = pico2d.clamp(680, self.x, 1240)
+            self.y = pico2d.clamp(260, self.y, 800)
+        elif self.phase == 2:
+            self.x = pico2d.clamp(680, self.x, 1800)
+            self.y = pico2d.clamp(260, self.y, 800)
+        elif self.phase == 3:
+            self.x = pico2d.clamp(680, self.x, 1800)
+            self.y = pico2d.clamp(-300, self.y, 800)
+
 
     def add_event(self, event):
         self.state_machine.add_event(('INPUT', event))
@@ -337,6 +369,14 @@ class Forager:
                 self.heart -= 1
                 damagescreen = DamageScreen()
                 game_world.add_object(damagescreen, 5)
+                self.damage_can = False
+                self.damage_time = pico2d.get_time()
+                self.heart_time = pico2d.get_time()
+        elif group == 'forager:demon':
+            if self.damage_can == True:
+                self.heart -= 1
+                damagescreen1 = DamageScreen()
+                game_world.add_object(damagescreen1, 5)
                 self.damage_can = False
                 self.damage_time = pico2d.get_time()
                 self.heart_time = pico2d.get_time()

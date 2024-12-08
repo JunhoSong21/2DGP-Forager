@@ -2,6 +2,7 @@ import game_framework
 import game_world
 import pico2d
 import server
+import temple_mode
 
 from mouse_cursor import *
 from background import *
@@ -12,6 +13,7 @@ from axe import *
 from grassland import *
 from playmodecoin import *
 from playmodecursor import *
+from gameover import *
 
 from tree import *
 from treedrop import *
@@ -19,13 +21,17 @@ from rock import *
 from goldrock import *
 from ironrock import *
 
+from ekey import *
+
 def handle_events():
-    global running, foragershadow, axe
+    global running, foragershadow, axe, ekey
 
     events = pico2d.get_events()
     for event in events:
         if event.type == pico2d.SDL_KEYDOWN or pico2d.SDL_KEYUP:
             server.forager.add_event(event)
+        if ekey.ImageOn == True and event.type == pico2d.SDL_KEYDOWN and event.key == SDLK_e:
+            game_framework.change_mode(temple_mode)
 
         if event.type == pico2d.SDL_MOUSEMOTION:
             server.mousecursor.x, server.mousecursor.y = event.x, 1080 - event.y
@@ -58,7 +64,7 @@ def handle_events():
 
 
 def init():
-    global running, foragershadow, axe
+    global running, foragershadow, axe, ekey
 
     running = True
 
@@ -72,17 +78,20 @@ def init():
     grassland = GrassLand() # 땅
     game_world.add_object(grassland, 1)
 
-    server.forager = Forager() # 캐릭터
-    game_world.add_object(server.forager, 3)
-
     foragershadow = ForagerShadow() # 캐릭터 그림자
     game_world.add_object(foragershadow, 2)
 
     backpack = BackPack() # 캐릭터 가방
     game_world.add_object(backpack, 2)
 
+    server.forager = Forager() # 캐릭터
+    game_world.add_object(server.forager, 3)
+
+
+    
+
     axe = Axe() # 캐릭터 도구
-    game_world.add_object(axe, 4)
+    game_world.add_object(axe, 3)
 
     server.inventorycursor = PlayModeCursor() # 아래 인벤토리 커서
     game_world.add_object(server.inventorycursor, 4)
@@ -146,6 +155,9 @@ def init():
     tree7 = Tree()
     game_world.add_object(tree7, 2)
     tree7.cx, tree7.cy = 224, -224
+
+    ekey = Ekey()
+    game_world.add_object(ekey, 3)
 
 def finish():
     game_world.clear()
